@@ -22,8 +22,13 @@ public class UserUpdateDto {
     @Size(max = 50, message = "Phone number must be less than 50 characters")
     private String phone;
 
+    @NotBlank(message = "Address is required")
+    private String address;
+
     @Email(message = "Email should be valid")
     @NotBlank(message = "Email is required")
     private String email;
+
+
 
 }

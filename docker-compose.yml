@@ -47,6 +47,21 @@ services:
     networks:
       - base-app
 
+  patient-service-postgres:
+    image: postgres:16
+    container_name: patient-service-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: patient_service_db
+      POSTGRES_USER: patient_service_dev
+      POSTGRES_PASSWORD: patient_service_dev
+    ports:
+      - "5434:5432" # use 5433 on host to avoid clashing with other Postgres
+    volumes:
+      - patient_service_postgres_data:/var/lib/postgresql/data
+    networks:
+      - base-app
+
 
 
 networks:
@@ -56,3 +71,4 @@ volumes:
   keycloak_data:
   postgres_data:
   user_service_postgres_data:
+  patient_service_postgres_data:

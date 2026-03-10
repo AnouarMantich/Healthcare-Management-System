@@ -1,6 +1,7 @@
 package org.app.userservice.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.app.userservice.dto.UserResponse;
 import org.app.userservice.entity.User;
 import org.app.userservice.mapper.UserMapper;
@@ -17,11 +18,14 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
 
     private final UserService service;
@@ -34,8 +38,19 @@ public class UserController {
             String email = jwt.getClaim("email");
             String fullName = jwt.getClaim("name");
             String username = jwt.getClaim("preferred_username");
+            Map<String, List<String>> realmAccess = jwt.getClaim("realm_access");
+            List<String> roles = realmAccess.get("roles");
+            String role;
+            if (roles.contains("ADMIN")) {
+               role = "ADMIN";
+            } else if (roles.contains("DOCTOR")) {
+                role = "DOCTOR";
+            }
+            else  {
+                role = "USER";
+            }
 
-            User user = service.getOrCreateUser(keycloakId, email, fullName, username);
+            User user = service.getOrCreateUser(keycloakId, email, fullName, role);
 
 //            if (!user.isProfileCompleted()) {
 //                return ResponseEntity.status(HttpStatus.TEMPORARY_REDIRECT)

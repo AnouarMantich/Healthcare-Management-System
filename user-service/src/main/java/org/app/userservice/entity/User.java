@@ -29,7 +29,9 @@ public class User {
     @Column(nullable = false)
     private boolean profileCompleted = false;
 
+
     private String fullName;
+    private String address;
     private String phone;
     private String role;
     private LocalDateTime createdAt = LocalDateTime.now();

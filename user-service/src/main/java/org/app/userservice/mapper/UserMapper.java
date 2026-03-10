@@ -13,6 +13,7 @@ public final class UserMapper {
                 .email(u.getEmail())
                 .fullName(u.getFullName())
                 .phone(u.getPhone())
+                .address(u.getAddress())
                 .role(u.getRole())
                 .profileCompleted(u.isProfileCompleted())
                 .createdAt(u.getCreatedAt())
