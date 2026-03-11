@@ -33,6 +33,6 @@ public class User {
     private String fullName;
     private String address;
     private String phone;
-    private String role;
+    private Role role;
     private LocalDateTime createdAt = LocalDateTime.now();
 }

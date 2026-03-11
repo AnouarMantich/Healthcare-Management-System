@@ -3,6 +3,7 @@ package org.app.userservice.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.app.userservice.dto.UserResponse;
+import org.app.userservice.entity.Role;
 import org.app.userservice.entity.User;
 import org.app.userservice.mapper.UserMapper;
 import org.app.userservice.service.UserService;
@@ -40,14 +41,14 @@ public class UserController {
             String username = jwt.getClaim("preferred_username");
             Map<String, List<String>> realmAccess = jwt.getClaim("realm_access");
             List<String> roles = realmAccess.get("roles");
-            String role;
+            Role role;
             if (roles.contains("ADMIN")) {
-               role = "ADMIN";
+               role = Role.ADMIN;
             } else if (roles.contains("DOCTOR")) {
-                role = "DOCTOR";
+                role = Role.DOCTOR;
             }
             else  {
-                role = "USER";
+                role = Role.PATIENT;
             }
 
             User user = service.getOrCreateUser(keycloakId, email, fullName, role);

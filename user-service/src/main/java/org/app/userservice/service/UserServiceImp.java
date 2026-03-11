@@ -3,6 +3,7 @@ package org.app.userservice.service;
 import lombok.RequiredArgsConstructor;
 import org.app.userservice.dto.UserResponse;
 import org.app.userservice.dto.UserUpdateDto;
+import org.app.userservice.entity.Role;
 import org.app.userservice.entity.User;
 
 import org.app.userservice.exception.UserNotFoundException;
@@ -20,7 +21,7 @@ public class UserServiceImp implements UserService {
 
     private final UserRepository repo;
     @Override
-    public User getOrCreateUser(UUID keycloakId, String email, String fullName, String role) {
+    public User getOrCreateUser(UUID keycloakId, String email, String fullName, Role role) {
         return repo.findByKeycloakId(keycloakId).orElseGet(() -> {
             User user = User.builder()
                     .keycloakId(keycloakId)
