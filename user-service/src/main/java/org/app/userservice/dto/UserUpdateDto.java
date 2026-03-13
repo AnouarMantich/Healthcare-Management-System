@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserUpdateDto {
 
-    @NotBlank(message = "Full name is required")
-    @Size(max = 255, message = "Full name must be less than 255 characters")
-    private String fullName;
+    @NotBlank(message = "CIN is required")
+    @Size(max = 10, message = "CIN should be like xxxxxxxxxx")
+    private String cin;
 
     @NotBlank(message = "Phone number is required")
     @Size(max = 50, message = "Phone number must be less than 50 characters")
@@ -24,10 +24,6 @@ public class UserUpdateDto {
 
     @NotBlank(message = "Address is required")
     private String address;
-
-    @Email(message = "Email should be valid")
-    @NotBlank(message = "Email is required")
-    private String email;
 
 
 

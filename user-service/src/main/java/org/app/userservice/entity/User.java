@@ -5,7 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -15,13 +18,14 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+public class User{
+
     @Id
-    @GeneratedValue
     private UUID id;
 
-    @Column(nullable = false, unique = true)
-    private UUID keycloakId; // same as Keycloak `sub` claim
+    private String cin;
+
+    private String username;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -29,10 +33,18 @@ public class User {
     @Column(nullable = false)
     private boolean profileCompleted = false;
 
+    private String firstName;
+
+    private String lastName;
 
     private String fullName;
+
     private String address;
-    private String phone;
+
+    private String phoneNumber;
+
     private Role role;
-    private LocalDateTime createdAt = LocalDateTime.now();
+
+    private  Instant createdAt;
+
 }

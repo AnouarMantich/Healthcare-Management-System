@@ -1,6 +1,7 @@
 package org.app.userservice.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.app.userservice.dto.UserResponse;
 import org.app.userservice.dto.UserUpdateDto;
 import org.app.userservice.entity.Role;
@@ -13,25 +14,24 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImp implements UserService {
 
     private final UserRepository repo;
     @Override
-    public User getOrCreateUser(UUID keycloakId, String email, String fullName, Role role) {
-        return repo.findByKeycloakId(keycloakId).orElseGet(() -> {
-            User user = User.builder()
-                    .keycloakId(keycloakId)
-                    .email(email)
-                    .fullName(fullName)
-                    .profileCompleted(false) // new users must complete profile
-                    .role(role)
-                    .build();
+    public UserResponse getOrCreateUser(User user) {
+
+        User requestedUser = repo.findById(user.getId()).orElseGet(() -> {
+            user.setCreatedAt(Instant.now());
             return repo.save(user);
         });
+
+        return UserMapper.toResponse(requestedUser);
     }
 
     // --- Admin methods ---
@@ -52,13 +52,17 @@ public class UserServiceImp implements UserService {
         if (!repo.existsById(id)) throw new UserNotFoundException("User not found");
         repo.deleteById(id);
     }
+
+
+
     @Override
     public UserResponse updateProfile(UUID keycloakId, UserUpdateDto updateDto) {
-        User user = repo.findByKeycloakId(keycloakId)
+        User user = repo.findById(keycloakId)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
         UserMapper.updateEntity(user, updateDto);
-        user.setProfileCompleted(true); // ✅ profile now complete
+
+
 
         return UserMapper.toResponse(repo.save(user));
     }

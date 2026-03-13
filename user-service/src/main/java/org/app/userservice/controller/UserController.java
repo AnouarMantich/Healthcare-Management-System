@@ -3,6 +3,7 @@ package org.app.userservice.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.app.userservice.dto.UserResponse;
+import org.app.userservice.dto.UserUpdateDto;
 import org.app.userservice.entity.Role;
 import org.app.userservice.entity.User;
 import org.app.userservice.mapper.UserMapper;
@@ -33,25 +34,37 @@ public class UserController {
 
     // ✅ Get or create current authenticated user
     @GetMapping("/me")
-    public Mono<ResponseEntity<UserResponse>> me(@AuthenticationPrincipal Jwt jwt) {
-        return Mono.fromCallable(() -> {
-            UUID keycloakId = UUID.fromString(jwt.getSubject());
-            String email = jwt.getClaim("email");
-            String fullName = jwt.getClaim("name");
-            String username = jwt.getClaim("preferred_username");
-            Map<String, List<String>> realmAccess = jwt.getClaim("realm_access");
-            List<String> roles = realmAccess.get("roles");
-            Role role;
-            if (roles.contains("ADMIN")) {
-               role = Role.ADMIN;
-            } else if (roles.contains("DOCTOR")) {
-                role = Role.DOCTOR;
-            }
-            else  {
-                role = Role.PATIENT;
-            }
+    public ResponseEntity<UserResponse> me(@AuthenticationPrincipal Jwt jwt) {
 
-            User user = service.getOrCreateUser(keycloakId, email, fullName, role);
+        UUID keycloakId = UUID.fromString(jwt.getSubject());
+        String firstName = jwt.getClaim("given_name");
+        String lastName = jwt.getClaim("family_name");
+        String username = jwt.getClaim("preferred_username");
+        String email = jwt.getClaim("email");
+        String fullName = jwt.getClaim("name");
+        Map<String, List<String>> realmAccess = jwt.getClaim("realm_access");
+        List<String> roles = realmAccess.get("roles");
+        Role role;
+        if (roles.contains("ADMIN")) {
+            role = Role.ADMIN;
+        } else if (roles.contains("DOCTOR")) {
+            role = Role.DOCTOR;
+        }
+        else  {
+            role = Role.PATIENT;
+        }
+        User user= User.builder()
+                .id(keycloakId)
+                .username(username)
+                .email(email)
+                .firstName(firstName)
+                .lastName(lastName)
+                .fullName(fullName)
+                .profileCompleted(false)
+                .role(role)
+                .build();
+
+        UserResponse savedUser = service.getOrCreateUser(user);
 
 //            if (!user.isProfileCompleted()) {
 //                return ResponseEntity.status(HttpStatus.TEMPORARY_REDIRECT)
@@ -59,43 +72,48 @@ public class UserController {
 //                        .body(UserMapper.toResponse(user));
 //            }
 
-            return ResponseEntity.ok(UserMapper.toResponse(user));
-        });
+            return ResponseEntity.ok(savedUser);
+
     }
 
     // ✅ Get all users (admin only) with pagination
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public Mono<ResponseEntity<Page<UserResponse>>> getAllUsers(
+    public ResponseEntity<Page<UserResponse>> getAllUsers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "createdAt") String sortBy,
             @RequestParam(defaultValue = "desc") String direction) {
 
-        return Mono.fromCallable(() -> {
+
             Sort sort = direction.equalsIgnoreCase("asc")
                     ? Sort.by(sortBy).ascending()
                     : Sort.by(sortBy).descending();
 
             Pageable pageable = PageRequest.of(page, size, sort);
             return ResponseEntity.ok(service.findAll(pageable));
-        });
+
     }
 
     // ✅ Get user by id (admin only)
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public Mono<ResponseEntity<UserResponse>> findById(@PathVariable UUID id) {
-        return Mono.fromCallable(() ->
-                ResponseEntity.ok(service.findById(id))
-        );
+    public ResponseEntity<UserResponse> findById(@PathVariable UUID id) {
+           return  ResponseEntity.ok(service.findById(id));
     }
 
     // ✅ Delete user by id (admin only)
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public Mono<ResponseEntity<Void>> deleteById(@PathVariable UUID id) {
-        return Mono.fromRunnable(() -> service.deleteById(id))
-                .then(Mono.just(ResponseEntity.noContent().build()));
+    public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
+        service.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
+
+
+    @PutMapping()
+    public ResponseEntity<UserResponse> updateUser(@AuthenticationPrincipal Jwt jwt,@RequestBody UserUpdateDto updateDto) {
+        UUID keycloakId = UUID.fromString(jwt.getSubject());
+        return ResponseEntity.ok(service.updateProfile(keycloakId, updateDto));
     }
 }

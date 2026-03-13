@@ -1,0 +1,79 @@
+/* General form container */
+.form-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #e3f2fd; /* Light blue health theme */
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  font-family: Arial, sans-serif;
+}
+
+/* Form heading */
+.form-container h2 {
+  text-align: center;
+  color: #0277bd; /* Darker blue */
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+/* Form groups */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Labels */
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #01579b;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #90caf9;
+  font-size: 14px;
+  transition:
+    border 0.3s,
+    box-shadow 0.3s;
+}
+
+input:focus {
+  border-color: #0288d1;
+  box-shadow: 0 0 5px #0288d1;
+  outline: none;
+}
+
+/* Error messages */
+.error {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Submit button */
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #0288d1;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:disabled {
+  background-color: #90caf9;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: #0277bd;
+}

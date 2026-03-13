@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.UUID;
 
 public interface UserService {
-    User getOrCreateUser(UUID keycloakId, String email, String fullName, Role role);
+    UserResponse getOrCreateUser(User user);
 
     // --- Admin methods ---
     Page<UserResponse> findAll(Pageable pageable);

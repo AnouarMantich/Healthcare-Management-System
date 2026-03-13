@@ -6,20 +6,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.app.userservice.entity.Role;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
+import java.time.Instant;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class UserResponse {
-    private UUID id;
+    private String cin;
+    private String username;
     private String email;
+    private boolean profileCompleted = false;
+    private String firstName;
+    private String lastName;
     private String fullName;
-    private String phone;
-    private Role role;
     private String address;
-    private boolean profileCompleted;
-    private LocalDateTime createdAt;
+    private String phoneNumber;
+    private Role role;
+    private Instant createdAt;
 }
