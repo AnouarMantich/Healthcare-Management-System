@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Silent SSO Check</title>
+  </head>
+  <body>
+    <script>
+      // This file is loaded in an invisible iframe by Keycloak to
+      // silently check the current login status without redirecting
+      // the main Angular application.
+      //
+      // It should NOT bootstrap Angular; it only needs to notify the
+      // parent window.
+      try {
+        parent.postMessage(location.href, location.origin);
+      } catch (e) {
+        // Fallback for older browsers
+        parent.postMessage(location.href, '*');
+      }
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,42 @@
+<main class="app-shell">
+  <section class="auth-card">
+    <header class="auth-header">
+      <div class="logo-circle">
+        <span class="logo-cross">+</span>
+      </div>
+      <div class="auth-header-text">
+        <h1>{{ appName }}</h1>
+        <p>Secure access for medical staff and patients</p>
+      </div>
+    </header>
+
+    @if (!isInitialized()) {
+      <div class="auth-state auth-loading">
+        <div class="spinner" aria-hidden="true"></div>
+        <p>Connecting to secure session...</p>
+      </div>
+    } @else {
+      <div class="auth-state">
+        <h2>Sign in to continue</h2>
+        <p>
+          Use your Keycloak account from the
+          <strong>starter-app</strong> realm to access clinical data.
+        </p>
+
+        <div class="auth-actions">
+          <button type="button" class="btn primary" (click)="login()">
+            Log in with Keycloak
+          </button>
+        </div>
+
+        <div class="hint">
+          <p>
+            You will be redirected to the Keycloak login page hosted at
+            <strong>localhost:8080</strong>.
+          </p>
+        </div>
+      </div>
+    }
+  </section>
+</main>
+

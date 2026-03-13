@@ -1,0 +1,32 @@
+import {
+  APP_INITIALIZER,
+  ApplicationConfig,
+  provideBrowserGlobalErrorListeners,
+} from '@angular/core';
+import {
+  provideHttpClient,
+  withInterceptors,
+} from '@angular/common/http';
+import { provideRouter } from '@angular/router';
+
+import { routes } from './app.routes';
+import { KeycloakService } from './keycloak.service';
+import { authInterceptor } from './auth.interceptor';
+
+function initializeKeycloak(keycloakService: KeycloakService): () => Promise<boolean> {
+  return () => keycloakService.init();
+}
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideRouter(routes),
+    provideHttpClient(withInterceptors([authInterceptor])),
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      deps: [KeycloakService],
+      multi: true,
+    },
+  ]
+};

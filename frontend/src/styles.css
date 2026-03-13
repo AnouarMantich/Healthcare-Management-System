@@ -1,0 +1,44 @@
+/* Import shared app-level styles (buttons, auth card, etc.) */
+@import './app/app.css';
+
+/* Global medical-themed styling */
+
+:root {
+  --med-bg: #f5fbff;
+  --med-bg-card: #ffffff;
+  --med-primary: #048ba8;
+  --med-primary-soft: #e0f4f8;
+  --med-accent: #36cfc9;
+  --med-danger: #e94f64;
+  --med-text-main: #1f2933;
+  --med-text-muted: #6b7280;
+  --med-border-subtle: #d1e5f3;
+  --med-radius-lg: 18px;
+  --med-radius-pill: 999px;
+  --med-shadow-soft: 0 20px 40px rgba(15, 63, 92, 0.08);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+  background: radial-gradient(circle at top left, #e1f5ff 0, #f5fbff 40%, #f8fafc 100%);
+  color: var(--med-text-main);
+}
+
+button {
+  font-family: inherit;
+}
