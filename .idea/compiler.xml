@@ -27,6 +27,7 @@
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar" />
         </processorPath>
+        <module name="patient-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -46,7 +47,6 @@
       <module name="eureka-service (2)" target="1.5" />
       <module name="eureka-service (3)" target="21" />
       <module name="eureka-service (4)" target="21" />
-      <module name="patient-service" target="21" />
       <module name="payment-service" target="21" />
       <module name="payment-service (1)" target="1.5" />
       <module name="payment-service (2) (org.app)" target="21" />
