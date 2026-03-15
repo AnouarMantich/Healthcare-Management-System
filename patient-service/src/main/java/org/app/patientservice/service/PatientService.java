@@ -10,8 +10,8 @@ public interface PatientService {
     List<ResponseDto> getPatients();
     ResponseDto getPatientById(String id);
     ResponseDto addPatient(RequestDto requestDto);
-    ResponseDto updatePatient(RequestDto requestDto);
-    ResponseDto deletePatient(String id);
+    ResponseDto updatePatient(String id,RequestDto requestDto);
+    void deletePatient(String id);
 
 
 }
