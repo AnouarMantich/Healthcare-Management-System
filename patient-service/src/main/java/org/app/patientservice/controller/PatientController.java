@@ -30,9 +30,9 @@ public class PatientController {
     }
 
 
-    @PostMapping()
-    public ResponseEntity<ResponseDto> addPatient(@RequestBody RequestDto requestDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(patientService.addPatient(requestDto));
+    @PostMapping("/{id}")
+    public ResponseEntity<ResponseDto> addPatient(@PathVariable String id,@RequestBody RequestDto requestDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(patientService.addPatient(id,requestDto));
     }
 
 

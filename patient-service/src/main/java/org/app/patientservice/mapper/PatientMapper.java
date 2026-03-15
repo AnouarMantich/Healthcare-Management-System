@@ -1,6 +1,10 @@
 package org.app.patientservice.mapper;
 
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.app.patientservice.client.UserClient;
+import org.app.patientservice.client.dto.UserResponse;
 import org.app.patientservice.dto.RequestDto;
 import org.app.patientservice.dto.ResponseDto;
 import org.app.patientservice.entity.Patient;
@@ -8,12 +12,16 @@ import org.springframework.beans.BeanUtils;
 
 import java.util.UUID;
 
+
 public class PatientMapper {
+
+
 
 
     public static ResponseDto  toResponseDto(Patient patient) {
         ResponseDto responseDto = new ResponseDto();
         BeanUtils.copyProperties(patient, responseDto);
+
         return responseDto;
     }
 

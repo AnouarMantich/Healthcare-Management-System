@@ -9,7 +9,7 @@ public interface PatientService {
 
     List<ResponseDto> getPatients();
     ResponseDto getPatientById(String id);
-    ResponseDto addPatient(RequestDto requestDto);
+    ResponseDto addPatient(String id,RequestDto requestDto);
     ResponseDto updatePatient(String id,RequestDto requestDto);
     void deletePatient(String id);
 

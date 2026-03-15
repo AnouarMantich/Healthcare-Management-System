@@ -7,12 +7,14 @@ import lombok.NoArgsConstructor;
 import org.app.userservice.entity.Role;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class UserResponse {
+    private UUID id;
     private String cin;
     private String username;
     private String email;
