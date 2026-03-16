@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../../../user.service';
 import { Router } from '@angular/router';
+import { User } from '../../../../model/user';
 
 @Component({
   selector: 'app-patient-form',
@@ -27,7 +28,7 @@ export class PatientFormComponent {
 
   submit() {
     if (this.patientForm.valid) {
-      this.userService.compleateProfile(this.patientForm.value).subscribe((data) => {
+      this.userService.compleateProfile(this.patientForm.value).subscribe((data: User) => {
         void this.router.navigate(['/home']);
       });
       alert('Patient information submitted successfully!');

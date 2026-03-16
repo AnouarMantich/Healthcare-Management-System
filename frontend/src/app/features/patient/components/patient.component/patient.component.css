@@ -1,0 +1,44 @@
+.patient-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.title {
+  margin-bottom: 25px;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-item label {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+.info-item span {
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+.blood {
+  background: #ff7675;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  width: fit-content;
+}

@@ -1,0 +1,46 @@
+<div class="patients-wrapper">
+  <h2 class="patients-title">Patients List</h2>
+
+  <table class="patients-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>CIN</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Blood Type</th>
+        <th>Emergency</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @if (loading) {
+        <h1>is Loading</h1>
+      }
+      @if (!loading) {
+        @for (patient of patients; track $index) {
+          <tr (click)="goToPatient(patient.id)" class="patient-row">
+            <td>{{ patient.user.fullName }}</td>
+            <td>{{ patient.user.cin }}</td>
+            <td>{{ patient.user.email }}</td>
+            <td>{{ patient.user.phoneNumber }}</td>
+            <td>{{ patient.user.address }}</td>
+            <td>
+              <span class="badge blood">{{ patient.bloodType }}</span>
+            </td>
+            <td>{{ patient.emergencyContact }}</td>
+            <td>
+              <span class="badge role">{{ patient.user.role }}</span>
+            </td>
+          </tr>
+        }
+      }
+
+      @if (!loading && patients.length === 0) {
+        <h1>No Patients yet</h1>
+      }
+    </tbody>
+  </table>
+</div>
