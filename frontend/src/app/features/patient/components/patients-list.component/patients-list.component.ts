@@ -5,16 +5,20 @@ import { PatientComponent } from '../patient.component/patient.component';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-patients-list.component',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './patients-list.component.html',
   styleUrl: './patients-list.component.css',
 })
 export class PatientsListComponent implements OnInit {
   patients: Patient[] = [];
   loading: boolean = true;
+  searchText: string = '';
+  searchField: string = 'fullName';
+  filteredPatients: Patient[] = []; // filtered
 
   constructor(
     private route: ActivatedRoute,
@@ -34,4 +38,6 @@ export class PatientsListComponent implements OnInit {
   goToPatient(id: string) {
     this.router.navigate(['/patients', id]);
   }
+
+  filterPatients() {}
 }

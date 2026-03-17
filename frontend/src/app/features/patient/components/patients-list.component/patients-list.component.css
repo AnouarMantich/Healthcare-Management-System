@@ -102,3 +102,27 @@
     min-width: 120px;
   }
 }
+
+/* Search bar */
+.search-container {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+  align-items: center;
+}
+
+.search-container input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #dcdfe6;
+  font-size: 14px;
+}
+
+.search-container select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #dcdfe6;
+  font-size: 14px;
+  background: #fafafa;
+}

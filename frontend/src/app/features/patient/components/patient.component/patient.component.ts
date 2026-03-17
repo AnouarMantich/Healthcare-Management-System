@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { Patient } from './../../model/patient';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-patient',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './patient.component.html',
   styleUrl: './patient.component.css',
 })
