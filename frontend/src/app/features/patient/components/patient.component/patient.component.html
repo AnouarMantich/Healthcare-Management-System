@@ -1,55 +1,81 @@
-<div class="patient-container" *ngIf="patient">
-  <h2 class="title">Patient Information</h2>
+@if (patient) {
+  <div class="patient-container">
+    <h2 class="title">Patient Information</h2>
 
-  <div class="info-grid">
-    <div class="info-item">
-      <label>Full Name</label>
-      <span>{{ patient.user.fullName }}</span>
+    <div class="actions">
+      <button class="btn btn-primary" (click)="editPatient()">Update Patient</button>
     </div>
 
-    <div class="info-item">
-      <label>CIN</label>
-      <span>{{ patient.user.cin }}</span>
-    </div>
+    <div class="info-grid">
+      <div class="info-item">
+        <label>Full Name</label>
+        <span>{{ patient.user.fullName }}</span>
+      </div>
 
-    <div class="info-item">
-      <label>Email</label>
-      <span>{{ patient.user.email }}</span>
-    </div>
+      <div class="info-item">
+        <label>CIN</label>
+        <span>{{ patient.user.cin }}</span>
+      </div>
 
-    <div class="info-item">
-      <label>Phone</label>
-      <span>{{ patient.user.phoneNumber }}</span>
-    </div>
+      <div class="info-item">
+        <label>Email</label>
+        <span>{{ patient.user.email }}</span>
+      </div>
 
-    <div class="info-item">
-      <label>Address</label>
-      <span>{{ patient.user.address }}</span>
-    </div>
+      <div class="info-item">
+        <label>Phone</label>
+        <span>{{ patient.user.phoneNumber }}</span>
+      </div>
 
-    <div class="info-item">
-      <label>Blood Type</label>
-      <span class="blood">{{ patient.bloodType }}</span>
-    </div>
+      <div class="info-item">
+        <label>Address</label>
+        <span>{{ patient.user.address }}</span>
+      </div>
 
-    <div class="info-item">
-      <label>Emergency Contact</label>
-      <span>{{ patient.emergencyContact }}</span>
-    </div>
+      <div class="info-item">
+        <label>Blood Type</label>
+        <span class="blood">{{ patient.bloodType }}</span>
+      </div>
 
-    <div class="info-item">
-      <label>Insurance Number</label>
-      <span>{{ patient.insuranceNumber || 'Not provided' }}</span>
-    </div>
+      <div class="info-item">
+        <label>Emergency Contact</label>
+        <span>{{ patient.emergencyContact }}</span>
+      </div>
 
-    <div class="info-item">
-      <label>Allergies</label>
-      <span>{{ patient.allergies || 'None' }}</span>
-    </div>
+      <div class="info-item">
+        <label>Insurance Number</label>
+        <span>{{ patient.insuranceNumber || 'Not provided' }}</span>
+      </div>
 
-    <div class="info-item">
-      <label>Chronic Diseases</label>
-      <span>{{ patient.chronicDiseases || 'None' }}</span>
+      <!-- Allergies -->
+      <div class="info-item">
+        <label>Allergies</label>
+
+        @if (patient.allergies?.length) {
+          <div class="tags">
+            @for (allergy of patient.allergies; track $index) {
+              <span class="tag allergy">{{ allergy }}</span>
+            }
+          </div>
+        } @else {
+          <span class="empty">None</span>
+        }
+      </div>
+
+      <!-- Chronic Diseases -->
+      <div class="info-item">
+        <label>Chronic Diseases</label>
+
+        @if (patient.chronicDiseases?.length) {
+          <div class="tags">
+            @for (disease of patient.chronicDiseases; track $index) {
+              <span class="tag disease">{{ disease }}</span>
+            }
+          </div>
+        } @else {
+          <span class="empty">None</span>
+        }
+      </div>
     </div>
   </div>
-</div>
+}

@@ -42,3 +42,74 @@
   border-radius: 12px;
   width: fit-content;
 }
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.btn {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.35rem;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.1s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #2d8cff, #1a5fe0);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(45, 140, 255, 0.25);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #3f9dff, #2a6de8);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  background: linear-gradient(135deg, #2a6de8, #1a4cd0);
+  transform: translateY(0);
+}
+
+.btn-primary:focus-visible {
+  outline: 3px solid rgba(45, 140, 255, 0.5);
+  outline-offset: 2px;
+}
+/* Tags container */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Base tag style */
+.tag {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+/* Allergy style (red) */
+.tag.allergy {
+  background: #fdecea;
+  color: #c0392b;
+}
+
+/* Disease style (orange) */
+.tag.disease {
+  background: #fff4e5;
+  color: #d35400;
+}
+
+/* Empty text */
+.empty {
+  color: #999;
+  font-style: italic;
+}

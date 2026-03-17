@@ -30,4 +30,8 @@ export class PatientComponent implements OnInit {
       }
     });
   }
+
+  editPatient() {
+    this.router.navigate(['/patients/update', this.patient?.id]);
+  }
 }

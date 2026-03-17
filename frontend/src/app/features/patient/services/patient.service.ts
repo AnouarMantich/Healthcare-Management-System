@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
 import { Patient } from '../model/patient';
+import { PatientUpdate } from '../model/patient-update';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,13 @@ export class PatientService {
   getPatient(id: string): Observable<Patient> {
     return this.httpClient.get<Patient>(
       `${environment.backendURL}/patient-service/api/v1/patients/${id}`,
+    );
+  }
+
+  updatePatient(id: String, patient: PatientUpdate): Observable<Patient> {
+    return this.httpClient.put<Patient>(
+      `${environment.backendURL}/patient-service/api/v1/patients/${id}`,
+      patient,
     );
   }
 }

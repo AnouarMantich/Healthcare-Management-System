@@ -1,0 +1,106 @@
+/* Page background */
+body {
+  background: linear-gradient(135deg, #eef2f7, #f8fbff);
+}
+
+/* Container */
+.form-container {
+  max-width: 520px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+/* Title */
+.form-title {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2c3e50;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* Form group */
+.form-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Labels */
+.form-group label {
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #555;
+  font-weight: 500;
+}
+
+/* Inputs & select */
+input,
+select {
+  padding: 11px 12px;
+  border-radius: 8px;
+  border: 1px solid #dcdfe6;
+  font-size: 14px;
+  transition: all 0.25s ease;
+  background-color: #fafafa;
+}
+
+/* Focus effect */
+input:focus,
+select:focus {
+  border-color: #3498db;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.15);
+  outline: none;
+}
+
+/* Placeholder style */
+input::placeholder {
+  color: #aaa;
+  font-size: 13px;
+}
+
+/* Button */
+button {
+  margin-top: 10px;
+  padding: 13px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #3498db, #5dade2);
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #2e86c1, #3498db);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(52, 152, 219, 0.3);
+}
+
+/* Disabled button */
+button:disabled {
+  background: #d5d8dc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Small animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

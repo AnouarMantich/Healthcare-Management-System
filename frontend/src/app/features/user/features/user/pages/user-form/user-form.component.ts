@@ -6,12 +6,12 @@ import { Router } from '@angular/router';
 import { User } from '../../../../model/user';
 
 @Component({
-  selector: 'app-patient-form',
+  selector: 'app-user-form',
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './patient-form.component.html',
-  styleUrls: ['./patient-form.component.css'],
+  templateUrl: './user-form.component.html',
+  styleUrls: ['./user-form.component.css'],
 })
-export class PatientFormComponent {
+export class UserFormComponent {
   patientForm: FormGroup;
   private readonly router = inject(Router);
 
