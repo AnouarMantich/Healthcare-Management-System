@@ -15,6 +15,8 @@ import { BloodType, PatientUpdate } from '../../model/patient-update';
 export class PatientForm implements OnInit {
   patientForm!: FormGroup;
   patientId: string = '';
+  allergies: string[] = [];
+  chronicDiseases: string[] = [];
   patient: Patient | null = null;
 
   bloodTypes = Object.values(BloodType);
@@ -35,11 +37,15 @@ export class PatientForm implements OnInit {
         console.warn('Patient not found, redirecting...');
         this.router.navigate(['/patients']); // fallback if patient not found
       }
+      this.allergies = Array.isArray(this.patient?.allergies) ? this.patient.allergies : [];
+      this.chronicDiseases = Array.isArray(this.patient?.chronicDiseases)
+        ? this.patient.chronicDiseases
+        : [];
     });
     this.patientForm = this.fb.group({
       bloodType: [this.patient?.bloodType, Validators.required],
-      allergies: [this.patient?.allergies],
-      chronicDiseases: [this.patient?.insuranceNumber],
+      allergies: [''],
+      chronicDiseases: [''],
       insuranceNumber: [this.patient?.insuranceNumber],
       emergencyContact: [this.patient?.emergencyContact, Validators.required],
     });
@@ -50,20 +56,21 @@ export class PatientForm implements OnInit {
       const formValue = this.patientForm.value;
 
       // convert comma-separated strings to arrays
-      formValue.allergies = formValue.allergies
-        ? formValue.allergies.split(',').map((a: string) => a.trim())
-        : [];
+      this.allergies = formValue.allergies
+        ? [...this.allergies, ...formValue.allergies.split(',').map((a: string) => a.trim())]
+        : [...this.allergies];
 
-      formValue.chronicDiseases = formValue.chronicDiseases
-        ? formValue.chronicDiseases.split(',').map((d: string) => d.trim())
-        : [];
+      this.chronicDiseases = formValue.chronicDiseases
+        ? [
+            ...this.chronicDiseases,
+            ...formValue.chronicDiseases.split(',').map((d: string) => d.trim()),
+          ]
+        : [...this.chronicDiseases];
 
       const patientUpdate: PatientUpdate = {
         bloodType: formValue.bloodTypes,
-        allergies: [...new Set([...(this.patient?.allergies || []), ...formValue.allergies])],
-        chronicDiseases: [
-          ...new Set([...(this.patient?.chronicDiseases || []), ...formValue.chronicDiseases]),
-        ],
+        allergies: [...new Set([...this.allergies])],
+        chronicDiseases: [...new Set([...this.chronicDiseases])],
         insuranceNumber: formValue.insuranceNumber,
         emergencyContact: formValue.emergencyContact,
       };
@@ -72,5 +79,12 @@ export class PatientForm implements OnInit {
         this.router.navigate(['/patients', this.patientId]);
       });
     }
+  }
+
+  removeDisease(id: number) {
+    this.chronicDiseases = [...this.chronicDiseases.filter((d, i) => i != id)];
+  }
+  removeAllergy(id: any) {
+    this.allergies = [...this.allergies.filter((a, i) => i != id)];
   }
 }

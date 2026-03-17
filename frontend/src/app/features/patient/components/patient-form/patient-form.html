@@ -1,43 +1,81 @@
-<div class="form-container">
-  <h2 class="form-title">Patient Form</h2>
+<div class="page">
+  <div class="form-container">
+    <h2 class="form-title">Patient Form</h2>
 
-  <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
-    <!-- Blood Type -->
-    <div class="form-group">
-      <label>Blood Type</label>
-      <select formControlName="bloodType">
-        <option value="">Select Blood Type</option>
-        <option *ngFor="let type of bloodTypes" [value]="type">
-          {{ type }}
-        </option>
-      </select>
-    </div>
+    <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
+      <!-- Blood Type -->
+      <div class="form-group">
+        <label>Blood Type</label>
+        <select formControlName="bloodType">
+          <option value="">Select Blood Type</option>
+          <option *ngFor="let type of bloodTypes" [value]="type">
+            {{ type }}
+          </option>
+        </select>
+      </div>
 
-    <!-- Allergies -->
-    <div class="form-group">
-      <label>Allergies (comma separated)</label>
-      <input type="text" formControlName="allergies" placeholder="e.g. peanuts, dust" />
-    </div>
+      <!-- Allergies Input -->
+      <div class="form-group">
+        <label>Add Allergies</label>
+        <input type="text" formControlName="allergies" placeholder="e.g. peanuts, dust" />
+      </div>
 
-    <!-- Chronic Diseases -->
-    <div class="form-group">
-      <label>Chronic Diseases (comma separated)</label>
-      <input type="text" formControlName="chronicDiseases" placeholder="e.g. diabetes" />
-    </div>
+      <!-- Allergies Tags -->
+      <div class="info-item">
+        <label>Allergies</label>
 
-    <!-- Insurance -->
-    <div class="form-group">
-      <label>Insurance Number</label>
-      <input type="text" formControlName="insuranceNumber" />
-    </div>
+        @if (allergies?.length) {
+          <div class="tags">
+            @for (allergy of allergies; track $index) {
+              <span class="tag allergy">
+                {{ allergy }}
+                <button type="button" class="remove-btn" (click)="removeAllergy($index)">✖</button>
+              </span>
+            }
+          </div>
+        } @else {
+          <span class="empty">No allergies</span>
+        }
+      </div>
 
-    <!-- Emergency -->
-    <div class="form-group">
-      <label>Emergency Contact</label>
-      <input type="text" formControlName="emergencyContact" />
-    </div>
+      <!-- Chronic Diseases Input -->
+      <div class="form-group">
+        <label>Add Chronic Diseases</label>
+        <input type="text" formControlName="chronicDiseases" placeholder="e.g. diabetes" />
+      </div>
 
-    <!-- Submit -->
-    <button type="submit" [disabled]="patientForm.invalid">Save Patient</button>
-  </form>
+      <!-- Chronic Diseases Tags -->
+      <div class="info-item">
+        <label>Chronic Diseases</label>
+
+        @if (chronicDiseases?.length) {
+          <div class="tags">
+            @for (disease of chronicDiseases; track $index) {
+              <span class="tag disease">
+                {{ disease }}
+                <button type="button" class="remove-btn" (click)="removeDisease($index)">✖</button>
+              </span>
+            }
+          </div>
+        } @else {
+          <span class="empty">No chronic diseases</span>
+        }
+      </div>
+
+      <!-- Insurance -->
+      <div class="form-group">
+        <label>Insurance Number</label>
+        <input type="text" formControlName="insuranceNumber" />
+      </div>
+
+      <!-- Emergency -->
+      <div class="form-group">
+        <label>Emergency Contact</label>
+        <input type="text" formControlName="emergencyContact" />
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" [disabled]="patientForm.invalid">Save Patient</button>
+    </form>
+  </div>
 </div>

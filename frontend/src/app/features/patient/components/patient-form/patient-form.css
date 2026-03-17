@@ -1,17 +1,21 @@
 /* Page background */
-body {
-  background: linear-gradient(135deg, #eef2f7, #f8fbff);
+.page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #eef3f8, #f9fbfd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Container */
 .form-container {
-  max-width: 520px;
-  margin: 50px auto;
+  width: 100%;
+  max-width: 600px;
   padding: 30px;
   background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border-radius: 18px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', sans-serif;
   animation: fadeIn 0.4s ease-in-out;
 }
 
@@ -19,55 +23,103 @@ body {
 .form-title {
   text-align: center;
   margin-bottom: 25px;
-  color: #2c3e50;
   font-size: 24px;
   font-weight: 600;
+  color: #2c3e50;
 }
 
-/* Form group */
-.form-group {
+/* Form groups */
+.form-group,
+.info-item {
   margin-bottom: 18px;
   display: flex;
   flex-direction: column;
 }
 
 /* Labels */
-.form-group label {
+label {
   font-size: 14px;
   margin-bottom: 6px;
   color: #555;
   font-weight: 500;
 }
 
-/* Inputs & select */
+/* Inputs */
 input,
 select {
-  padding: 11px 12px;
+  padding: 11px;
   border-radius: 8px;
   border: 1px solid #dcdfe6;
   font-size: 14px;
+  background: #fafafa;
   transition: all 0.25s ease;
-  background-color: #fafafa;
 }
 
-/* Focus effect */
 input:focus,
 select:focus {
   border-color: #3498db;
-  background-color: #ffffff;
+  background: #fff;
   box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.15);
   outline: none;
 }
 
-/* Placeholder style */
-input::placeholder {
-  color: #aaa;
-  font-size: 13px;
+/* Tags container */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
 }
 
-/* Button */
-button {
-  margin-top: 10px;
+/* Tag base */
+.tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+/* Allergy */
+.tag.allergy {
+  background: #fdecea;
+  color: #c0392b;
+}
+
+/* Disease */
+.tag.disease {
+  background: #fff4e5;
+  color: #d35400;
+}
+
+/* Remove button */
+.remove-btn {
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: 0.2s;
+}
+
+.remove-btn:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+/* Empty text */
+.empty {
+  color: #999;
+  font-style: italic;
+}
+
+/* Submit button */
+button[type='submit'] {
+  margin-top: 15px;
   padding: 13px;
   border-radius: 10px;
   border: none;
@@ -76,28 +128,25 @@ button {
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: 0.3s;
 }
 
-/* Hover effect */
-button:hover:not(:disabled) {
+button[type='submit']:hover:not(:disabled) {
   background: linear-gradient(135deg, #2e86c1, #3498db);
   transform: translateY(-1px);
-  box-shadow: 0 5px 12px rgba(52, 152, 219, 0.3);
+  box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3);
 }
 
-/* Disabled button */
 button:disabled {
   background: #d5d8dc;
   cursor: not-allowed;
-  box-shadow: none;
 }
 
-/* Small animation */
+/* Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
