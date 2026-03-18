@@ -1,22 +1,9 @@
 <div class="patients-wrapper">
-  <!-- Search Bar -->
-  <div class="search-container">
-    <input
-      type="text"
-      placeholder="Search patient..."
-      [(ngModel)]="searchText"
-      (input)="filterPatients()"
-    />
-
-    <select [(ngModel)]="searchField" (change)="filterPatients()">
-      <option value="fullName">Full Name</option>
-      <option value="cin">CIN</option>
-      <option value="email">Email</option>
-      <option value="phoneNumber">Phone</option>
-    </select>
-  </div>
   <h2 class="patients-title">Patients List</h2>
-
+  <div class="search-bar">
+    <input type="text" [(ngModel)]="searchText" placeholder="Search patients..." />
+    <button (click)="goToPatient(searchText.trim())">Search</button>
+  </div>
   <table class="patients-table">
     <thead>
       <tr>

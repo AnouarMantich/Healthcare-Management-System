@@ -23,6 +23,12 @@ export class PatientService {
     );
   }
 
+  getPatientByCin(cin: string): Observable<Patient> {
+    return this.httpClient.get<Patient>(
+      `${environment.backendURL}/patient-service/api/v1/patients/findBy?cin=${cin}`,
+    );
+  }
+
   updatePatient(id: String, patient: PatientUpdate): Observable<Patient> {
     return this.httpClient.put<Patient>(
       `${environment.backendURL}/patient-service/api/v1/patients/${id}`,

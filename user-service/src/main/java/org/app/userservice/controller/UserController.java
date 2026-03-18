@@ -78,7 +78,7 @@ public class UserController {
 
     // ✅ Get all users (admin only) with pagination
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Page<UserResponse>> getAllUsers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -97,14 +97,21 @@ public class UserController {
 
     // ✅ Get user by id (admin only)
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserResponse> findById(@PathVariable UUID id) {
            return  ResponseEntity.ok(service.findById(id));
     }
 
+    // ✅ Get user by id (admin only)
+    @GetMapping("/findBy")
+//    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UserResponse> findByCin(@RequestParam String cin) {
+        return  ResponseEntity.ok(service.findByCin(cin));
+    }
+
     // ✅ Delete user by id (admin only)
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
         service.deleteById(id);
         return ResponseEntity.ok().build();

@@ -40,7 +40,7 @@ public class PatientServiceImpl implements PatientService {
 
         return all.stream().map(PatientMapper::toResponseDto)
                 .peek((patientDTO)->{
-                    UserResponse userById = userClient.getUserById(patientDTO.getId());
+                    UserResponse userById = userClient.getUserByCin(patientDTO.getId());
                     patientDTO.setUser(userById);
                 })
                 .toList();
@@ -50,23 +50,41 @@ public class PatientServiceImpl implements PatientService {
     public ResponseDto getPatientById(String id) {
 
         Patient patient = patientRepository.findById(id).orElseThrow(() -> new PatientNotFoundException(id));
-        UserResponse userById = userClient.getUserById(id);
+        UserResponse userByCin = userClient.getUserByCin(id);
 
         ResponseDto responseDto = PatientMapper.toResponseDto(patient);
-        responseDto.setUser(userById);
+        responseDto.setUser(userByCin);
 
         return responseDto;
     }
 
     @Override
+    public ResponseDto getPatientByCin(String cin) throws UserNotPatientException {
+
+        UserResponse userByCin = userClient.getUserByCin(cin);
+        if(userByCin==null){
+            throw new UserNotPatientException("");
+        }
+
+        patientRepository.getReferenceById(cin);
+        Patient patient = patientRepository.findById(cin).orElseThrow(() -> new PatientNotFoundException(cin));
+
+        ResponseDto responseDto = PatientMapper.toResponseDto(patient);
+        responseDto.setUser(userByCin);
+        return responseDto;
+    }
+
+
+
+
+    @Override
     public ResponseDto addPatient(String id,RequestDto requestDto) throws UserNotPatientException {
-        UserResponse userById = userClient.getUserById(id);
+        UserResponse userById = userClient.getUserByCin(id);
         if (userById.getRole().equals(Role.ADMIN) ||userById.getRole().equals(Role.DOCTOR)){
             throw new UserNotPatientException(id);
         }
-
         Patient patient = PatientMapper.toPatient(requestDto);
-        patient.setId(id);
+        patient.setId(userById.getCin());
         Patient savedPatient = patientRepository.save(patient);
         ResponseDto responseDto= PatientMapper.toResponseDto(savedPatient);
         responseDto.setUser(userById);
@@ -94,4 +112,7 @@ public class PatientServiceImpl implements PatientService {
         Patient patient = patientRepository.findById(id).orElseThrow(() -> new PatientNotFoundException(id));
         patientRepository.delete(patient);
     }
+
+
+
 }

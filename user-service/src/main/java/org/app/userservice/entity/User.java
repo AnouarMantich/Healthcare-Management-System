@@ -23,6 +23,7 @@ public class User{
     @Id
     private UUID id;
 
+    @Column(unique = true)
     private String cin;
 
     private String username;

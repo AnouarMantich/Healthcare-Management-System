@@ -38,6 +38,11 @@ public class PatientController {
         return ResponseEntity.ok(patientService.getPatientById(id));
     }
 
+    @GetMapping("/findBy")
+    public ResponseEntity<ResponseDto> getPatientByCin(@RequestParam String cin) throws UserNotPatientException {
+        return ResponseEntity.ok(patientService.getPatientByCin(cin));
+    }
+
 
     @PostMapping("/{id}")
     public ResponseEntity<ResponseDto> addPatient(@PathVariable String id,@RequestBody RequestDto requestDto) throws UserNotPatientException {

@@ -38,6 +38,4 @@ export class PatientsListComponent implements OnInit {
   goToPatient(id: string) {
     this.router.navigate(['/patients', id]);
   }
-
-  filterPatients() {}
 }

@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.app.userservice.dto.UserResponse;
 import org.app.userservice.dto.UserUpdateDto;
-import org.app.userservice.entity.Role;
 import org.app.userservice.entity.User;
 
 import org.app.userservice.exception.UserNotFoundException;
@@ -44,6 +43,12 @@ public class UserServiceImp implements UserService {
     @Override
     public UserResponse findById(UUID id) {
         return repo.findById(id).map(UserMapper::toResponse)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+    }
+
+    @Override
+    public UserResponse findByCin(String cin) {
+        return repo.findByCin(cin).map(UserMapper::toResponse)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 

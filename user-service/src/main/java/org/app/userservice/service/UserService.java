@@ -17,6 +17,8 @@ public interface UserService {
 
     UserResponse findById(UUID id);
 
+    UserResponse findByCin(String cin);
+
     void deleteById(UUID id);
 
     UserResponse updateProfile(UUID keycloakId, UserUpdateDto updateDto);

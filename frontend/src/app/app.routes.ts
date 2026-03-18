@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './features/auth/login/login.component';
 import { HomeComponent } from './features/home/home.component';
-import { UserFormComponent } from './features/user/features/user/pages/user-form/user-form.component';
+import { UserFormComponent } from './features/user/features/user/pages/patient-form/user-form.component';
 import { PatientsListComponent } from './features/patient/components/patients-list.component/patients-list.component';
 import { PatientComponent } from './features/patient/components/patient.component/patient.component';
 import { PatientsResolver } from './features/patient/services/patients-resolver';
