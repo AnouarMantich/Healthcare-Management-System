@@ -1,0 +1,43 @@
+<header class="navbar">
+  <!-- LEFT -->
+  <div class="nav-left">
+    <div class="brand" (click)="navigateTo('/')">
+      <div class="brand-mark">+</div>
+      <span class="brand-text">Medical Portal</span>
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="nav-links">
+      <a (click)="navigateTo('/')" class="nav-link">Home</a>
+
+      <!-- Dropdown -->
+      <div class="dropdown">
+        <span class="nav-link drop-trigger">Patients ▾</span>
+        <div class="dropdown-menu">
+          <a (click)="navigateTo('/patients')">Patients List</a>
+          <a (click)="navigateTo('/patients/add')">Add Patient</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="nav-right">
+    @if (currentUser()) {
+      <div class="nav-user">
+        <div class="avatar">
+          {{ currentUser()?.firstName?.[0] || currentUser()?.username?.[0] || 'U' }}
+        </div>
+
+        <div class="user-info">
+          <span class="name"> {{ currentUser()?.firstName }} {{ currentUser()?.lastName }} </span>
+          <span class="username">
+            {{ currentUser()?.username }}
+          </span>
+        </div>
+      </div>
+    }
+
+    <button class="btn-logout" (click)="logout()">Logout</button>
+  </div>
+</header>

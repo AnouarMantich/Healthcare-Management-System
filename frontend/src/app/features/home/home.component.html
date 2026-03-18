@@ -1,42 +1,11 @@
 <div class="home-shell">
-  <header class="home-navbar">
-    <div class="brand">
-      <div class="brand-mark">+</div>
-      <span class="brand-text">Starter Medical Portal</span>
-    </div>
-
-    <div class="nav-right">
-      @if (currentUser()) {
-        <div class="nav-user">
-          <div class="nav-avatar">
-            {{ currentUser()?.firstName?.[0] || currentUser()?.username?.[0] || 'U' }}
-          </div>
-          <div class="nav-user-details">
-            <span class="nav-name">
-              {{ currentUser()?.firstName }} {{ currentUser()?.lastName }}
-            </span>
-            <span class="nav-username">
-              {{ currentUser()?.username }}
-            </span>
-          </div>
-        </div>
-      }
-
-      <button type="button" class="btn secondary" (click)="logout()">
-        Log out
-      </button>
-    </div>
-  </header>
-
   <main class="home-content">
     <section class="home-card">
       <h1>Welcome</h1>
       <p>
-        You are now authenticated with Keycloak. All requests from this
-        application to protected backend services will automatically include
-        your JWT access token.
+        You are now authenticated with Keycloak. All requests from this application to protected
+        backend services will automatically include your JWT access token.
       </p>
     </section>
   </main>
 </div>
-
