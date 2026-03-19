@@ -8,6 +8,7 @@ import org.app.userservice.entity.Role;
 import org.app.userservice.entity.User;
 import org.app.userservice.mapper.UserMapper;
 import org.app.userservice.service.UserService;
+import org.app.userservice.util.ApiResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -65,6 +66,11 @@ public class UserController {
                 .build();
 
         UserResponse savedUser = service.getOrCreateUser(user);
+//        ApiResponse<UserResponse> response = new ApiResponse<>();
+//        response.setData(savedUser);
+//        response.setCode(HttpStatus.OK.value());
+//        response.setMessage("User has been created");
+//        response.setSuccess(true);
 
 //            if (!user.isProfileCompleted()) {
 //                return ResponseEntity.status(HttpStatus.TEMPORARY_REDIRECT)
