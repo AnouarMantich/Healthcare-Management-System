@@ -43,6 +43,8 @@ public class UserServiceImp implements UserService {
                 .map(UserMapper::toResponse);
     }
 
+
+
     @Override
     public UserResponse findById(UUID id) {
         if (!securityService.canAccessUser(id)) {
@@ -52,6 +54,8 @@ public class UserServiceImp implements UserService {
         return repo.findById(id).map(UserMapper::toResponse)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
+
+
 
     @Override
     public UserResponse findByCin(String cin) {
@@ -64,6 +68,8 @@ public class UserServiceImp implements UserService {
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
+
+
     @Override
     public void deleteById(UUID id) {
         if (!repo.existsById(id)) throw new UserNotFoundException("User not found");
@@ -75,7 +81,8 @@ public class UserServiceImp implements UserService {
     @Override
     public UserResponse updateProfile(UUID keycloakId, UserUpdateDto updateDto) {
         User user = repo.findById(keycloakId)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));
+                .orElseThrow(() ->
+                        new UserNotFoundException("User not found"));
 
         UserMapper.updateEntity(user, updateDto);
 
