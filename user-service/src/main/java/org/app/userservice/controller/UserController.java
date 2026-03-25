@@ -1,5 +1,6 @@
 package org.app.userservice.controller;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.app.userservice.dto.UserResponse;
@@ -25,15 +26,11 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/users")
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Slf4j
 public class UserController {
 
-    private final UserService service;
-
-    private  Authentication getAuth() {
-        return SecurityContextHolder.getContext().getAuthentication();
-    }
+    private  UserService service;
 
     // ✅ Get or create current authenticated user
     @GetMapping("/me")

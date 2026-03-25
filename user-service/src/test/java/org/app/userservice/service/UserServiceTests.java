@@ -8,6 +8,7 @@ import org.app.userservice.mapper.UserMapper;
 import org.app.userservice.repository.UserRepository;
 import org.app.userservice.security.SecurityService;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -39,44 +40,37 @@ public class UserServiceTests {
     private UserServiceImp userService;
 
 
+    private UUID uuid1 ;
+    private User user;
 
+
+
+     @BeforeEach
+     public void init(){
+         //Arrange
+          uuid1 = UUID.randomUUID();
+          user=User.builder()
+                 .id(uuid1)
+                 .cin("D000000")
+                 .email("userTest@gmail.com")
+                 .firstName("john")
+                 .lastName("doe")
+                 .build();
+     }
 
     @Test
     public void UserService_GetUserById_ReturnsUserDto(){
 
-        //Arrange
-        UUID uuid1 = UUID.randomUUID();
-        User user=User.builder()
-                .id(uuid1)
-                .cin("D000000")
-                .email("userTest@gmail.com")
-                .firstName("john")
-                .lastName("doe")
-                .build();
-
         when(userRepository.findById(Mockito.any())).thenReturn(Optional.ofNullable(user));
         when(securityService.canAccessUser((UUID) Mockito.any())).thenReturn(true);
-
         UserResponse byId = userService.findById(uuid1);
-
         Assertions.assertThat(byId).isNotNull();
-
 
     }
 
 
     @Test
     public void UserService_UpdateUser_ReturnUserDto(){
-
-        //Arrange
-        UUID uuid1 = UUID.randomUUID();
-        User user=User.builder()
-                .id(uuid1)
-                .cin("D000000")
-                .email("userTest@gmail.com")
-                .firstName("john")
-                .lastName("doe")
-                .build();
 
 
         UserUpdateDto userUpdateDto=UserUpdateDto.builder()
@@ -93,26 +87,13 @@ public class UserServiceTests {
 
         Assertions.assertThat(byId).isNotNull();
 
-
     }
 
 
     @Test
     public void UserService_DeleteUser_ReturnsUserIEmpty(){
 
-        //Arrange
-        UUID uuid1 = UUID.randomUUID();
-        User user=User.builder()
-                .id(uuid1)
-                .cin("D000000")
-                .email("userTest@gmail.com")
-                .firstName("john")
-                .lastName("doe")
-                .build();
-
-
         when(userRepository.existsById(Mockito.any())).thenReturn(true);
-
         assertAll(()->userService.deleteById(uuid1));
 
 

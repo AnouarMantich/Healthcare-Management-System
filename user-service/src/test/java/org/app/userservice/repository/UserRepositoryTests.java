@@ -4,6 +4,7 @@ package org.app.userservice.repository;
 import lombok.AllArgsConstructor;
 import org.app.userservice.entity.User;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
@@ -21,12 +22,21 @@ public class UserRepositoryTests {
     @Autowired
     private UserRepository userRepository;
 
-    @Test
-    public void UserRepository_SaveAll_ReturnSavedUser(){
 
-        //Arrange
-        UUID uuid = UUID.randomUUID();
-        User user=User.builder()
+    private UUID uuid ;
+    private User user;
+
+    private UUID uuid1 ;
+    private User user1;
+
+    private UUID uuid2 ;
+    private User user2;
+
+
+    @BeforeEach
+    public void init(){
+        uuid = UUID.randomUUID();
+        user=User.builder()
                 .id(uuid)
                 .cin("D000000")
                 .email("userTest@gmail.com")
@@ -34,7 +44,30 @@ public class UserRepositoryTests {
                 .lastName("doe")
                 .build();
 
-        //Act
+
+         uuid = UUID.randomUUID();
+         user=User.builder()
+                .id(uuid)
+                .cin("D000000")
+                .email("userTest@gmail.com")
+                .firstName("john")
+                .lastName("doe")
+                .build();
+
+
+         uuid2 = UUID.randomUUID();
+         user2=User.builder()
+                .id(uuid2)
+                .cin("D000002")
+                .email("user2Test@gmail.com")
+                .firstName("jane")
+                .lastName("doe")
+                .build();
+
+    }
+
+    @Test
+    public void UserRepository_SaveAll_ReturnSavedUser(){
 
         User savedUser = userRepository.save(user);
 
@@ -48,24 +81,7 @@ public class UserRepositoryTests {
     @Test
     public void UserRepository_GetAll_ReturnMoreThanOneUser(){
 
-        //Arrange
-        UUID uuid1 = UUID.randomUUID();
-        User user=User.builder()
-                .id(uuid1)
-                .cin("D000000")
-                .email("userTest@gmail.com")
-                .firstName("john")
-                .lastName("doe")
-                .build();
 
-        UUID uuid2 = UUID.randomUUID();
-        User user2=User.builder()
-                .id(uuid2)
-                .cin("D000002")
-                .email("user2Test@gmail.com")
-                .firstName("jane")
-                .lastName("doe")
-                .build();
 
         //Act
 
@@ -86,15 +102,7 @@ public class UserRepositoryTests {
     @Test
     public void UserRepository_FindById_ReturnPokemon(){
 
-        //Arrange
-        UUID uuid = UUID.randomUUID();
-        User user=User.builder()
-                .id(uuid)
-                .cin("D000000")
-                .email("userTest@gmail.com")
-                .firstName("john")
-                .lastName("doe")
-                .build();
+
 
         //Act
 
