@@ -1,7 +1,6 @@
 package org.app.userservice.controller;
 
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.app.userservice.dto.UserResponse;
 import org.app.userservice.dto.UserUpdateDto;
@@ -15,9 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +26,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Slf4j
 public class UserController {
+
 
     private  UserService service;
 
@@ -104,11 +102,11 @@ public class UserController {
     // ✅ Delete user by id (admin only)
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'DOCTOR')")
-    public ResponseEntity<ApiResponse<String>> deleteById(@PathVariable UUID id) {
+    public ResponseEntity<ApiResponse<Void>> deleteById(@PathVariable UUID id) {
         service.deleteById(id);
-        ApiResponse apiResponse= ApiResponse.success("""
-                User deleted successfully""","User deleted successfully");
-        return  ResponseEntity.ok(apiResponse);
+        ApiResponse<Void> response =
+                ApiResponse.success(null, "User deleted successfully");
+        return  ResponseEntity.ok(response);
     }
 
 
